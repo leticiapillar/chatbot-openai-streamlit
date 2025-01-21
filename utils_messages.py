@@ -17,7 +17,10 @@ def chat_assistant_message(messages):
 
     chat = st.chat_message("assistant")
     placeholder = chat.empty()
-    stream = create_message(messages)
+    stream = create_message(messages,
+                            api_key=st.session_state["api_key"],
+                            model=st.session_state["model"],
+                            stream=True)
     
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:

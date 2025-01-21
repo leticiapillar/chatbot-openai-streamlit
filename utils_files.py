@@ -6,6 +6,8 @@ from unidecode import unidecode
 
 PATH_MESSAGES = Path(__file__).parent/"messages"
 PATH_MESSAGES.mkdir(exist_ok=True)
+PATH_CONFIGS = Path(__file__).parent/"configs"
+PATH_CONFIGS.mkdir(exist_ok=True)
 CACHE_FILE_NAMES = {}
 
 def get_message_name(messages):
@@ -46,3 +48,13 @@ def get_content_of_file(file_name, key="messages"):
     with open(PATH_MESSAGES/file_name, "rb") as f:
         messages = pickle.load(f)
     return messages[key]
+
+def save_api_key(api_key):
+    with open(PATH_CONFIGS/"key", "wb") as f:
+        pickle.dump(api_key,f)
+
+def load_api_key():
+    if (PATH_CONFIGS/"key").exists():
+        with open(PATH_CONFIGS/"key", "rb") as f:
+            return pickle.load(f)
+    return ""
