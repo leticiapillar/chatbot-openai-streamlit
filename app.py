@@ -1,6 +1,6 @@
 import streamlit as st
 from utils_messages import load_messages, chat_user_message, chat_assistant_message
-from utils_files import save_messages_file, load_messages_files, decode_file_name, load_messages_by_file_name
+from utils_files import save_messages_file, load_messages_files, decode_file_name, get_content_of_file
 
 def init():
     if not "messages" in st.session_state:
@@ -19,7 +19,7 @@ def tab_chat(tab):
                    on_click=load_chat(file_name))
 
 def load_chat(file_name):
-    messages = load_messages_by_file_name(file_name)
+    messages = get_content_of_file(file_name)
     st.session_state['messages'] = messages
 
 def main():
