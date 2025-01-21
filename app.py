@@ -9,22 +9,34 @@ def init():
         st.session_state.model = "gpt-4o-mini"
     if not "api_key" in st.session_state:
         st.session_state.api_key = load_api_key()
+    if not "current_chat" in st.session_state:
+        st.session_state.current_chat = ""
 
 def tab_chat(tab):
-    if tab.button("New Chat", type="secondary", use_container_width=True):
-        tab.write("new chat ...")
+    tab.button("💬 New Chat", 
+                  type="secondary", 
+                  use_container_width=True,
+                  on_click=load_chat, 
+                  args=("", ))
 
+    tab.markdown("")
     files = load_messages_files()
     for file_name in files:
         name_decode = decode_file_name(file_name)
         tab.button(name_decode, 
                    type="tertiary", 
                    use_container_width=True,
-                   on_click=load_chat(file_name))
+                   on_click=load_chat,
+                   args=(file_name, ),
+                   disabled=file_name==st.session_state["current_chat"])
 
 def load_chat(file_name):
-    messages = get_content_of_file(file_name)
-    st.session_state['messages'] = messages
+    if file_name == "":
+        st.session_state['messages'] = []
+    else:
+        messages = get_content_of_file(file_name)
+        st.session_state['messages'] = messages
+    st.session_state["current_chat"] = file_name
 
 def tab_configs(tab):
     model_selected = tab.selectbox("Model", 
