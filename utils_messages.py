@@ -1,7 +1,7 @@
 import streamlit as st
 from utils_openai import create_message
 
-def load_message(messages):
+def load_messages(messages):
     for message in messages:
         chat = st.chat_message(message["role"])
         chat.markdown(message['content'])

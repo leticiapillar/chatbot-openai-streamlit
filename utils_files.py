@@ -30,3 +30,18 @@ def save_messages_file(messages):
     with open(PATH_MESSAGES/file_name, "wb") as f:
         pickle.dump(file, f)
 
+def load_messages_files():
+    files = list(PATH_MESSAGES.glob("*"))
+    files = sorted(files, key=lambda item: item.stat().st_mtime_ns, reverse=True)
+    return [f.stem for f in files]
+
+
+def decode_file_name(file_name, key="message_name"):
+    with open(PATH_MESSAGES/file_name, "rb") as f:
+        messages = pickle.load(f)
+    return messages[key]
+
+def load_messages_by_file_name(file_name, key="messages"):
+    with open(PATH_MESSAGES/file_name, "rb") as f:
+        messages = pickle.load(f)
+    return messages[key]
