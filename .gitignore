@@ -280,4 +280,8 @@ pyrightconfig.json
 .history
 .ionide
 
+# Paths
+configs/
+messages/
+
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,pycharm+all
