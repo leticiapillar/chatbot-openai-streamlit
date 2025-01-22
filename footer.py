@@ -22,7 +22,7 @@ def layout(*args):
     <style>
       # MainMenu {visibility: hidden;}
       footer {visibility: hidden;}
-     .stApp { bottom: 5%; }
+     .stApp { bottom: 100px; }
     </style>
     """
 
@@ -41,8 +41,8 @@ def layout(*args):
     style_hr = styles(
         display="block",
         margin=px(8, 8, "auto", "auto"),
-        border_style="inset",
-        border_width=px(2)
+        border_style="solid",
+        border_width=px(1)
     )
 
     body = p()
@@ -63,14 +63,21 @@ def layout(*args):
 
         elif isinstance(arg, HtmlElement):
             body(arg)
-
+    
     st.markdown(str(foot), unsafe_allow_html=True)
 
 
 def footer():
     myargs = [
         "Made in ",
-        link("https://www.linkedin.com/in/leticia-pillar-lisboa/", "Leticia"),
+        image('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg',
+              width=px(15), height=px(15)),
+        link("https://www.linkedin.com/in/leticia-pillar-lisboa/", " Leticia Pillar Lisboa"),
+        " | ", 
+        image('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg',
+              width=px(15), height=px(15)),
+        link("https://github.com/leticiapillar", "@leticiapillar "),
+        br(),
         " course by ",
         link("https://asimov.academy/", "Asimov Academy "),
     ]
